@@ -37,7 +37,9 @@ The bitcoin miners currently providing the merchant API beta endpoints are:
 <script src='https://unpkg.com/minercraft'></script>
 ```
 
-Check out a in-browser demo here: [Minercraft Browser Demo](demo/webdemo.html)
+Check out an in-browser demo here: [Minercraft Browser Demo](https://minercraft.network/demo/webdemo.html) (Source code [here](https://github.com/interplanaria/minercraft/blob/master/demo/webdemo.html))
+
+
 
 ## 2. In node.js
 
