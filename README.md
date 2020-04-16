@@ -25,7 +25,7 @@ The bitcoin miners currently providing the merchant API beta endpoints are:
 
 - Mempool: https://mempool.com
 - TAAL: https://taal.com
-- YOU CAN TOO!
+- YOU CAN TOO! (Please give a heads up to [@_unwriter](https://twitter.com/_unwriter) when you implement the API)
 
 ---
 
