@@ -111,7 +111,7 @@ fee rate: {
 
 ## 2. Calculate fee for a transaction
 
-Calculate a fixed rate:
+Calculate total fee, based on a fixed rate:
 
 ```javascript
 let fee = miner.fee.get({
