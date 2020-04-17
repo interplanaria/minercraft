@@ -23,6 +23,7 @@ Miner merchant APIs must follow the BRFC spec at https://github.com/bitcoin-sv/m
 
 The bitcoin miners currently providing the merchant API beta endpoints are:
 
+- Matterpool: https://matterpool.io
 - Mempool: https://mempool.com
 - TAAL: https://taal.com
 - YOU CAN TOO! (Please give a heads up to [@_unwriter](https://twitter.com/_unwriter) when you implement the API)
@@ -90,6 +91,15 @@ const miner = new Minercraft({
 
 > You can learn more about Mempool.com's API at: https://developers.dotwallet.com/en/dev/api/merchant
 
+### c. Matterpool.io
+
+You can use the following config to connect to Matterpool.io merchant API:
+
+```
+const miner = new Minercraft({
+  url: "https://merchantapi.matterpool.io",
+})
+```
 
 ## 1. Get the fee rate
 
