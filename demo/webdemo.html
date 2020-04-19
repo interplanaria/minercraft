@@ -35,14 +35,18 @@ var Miners = {
   "mempool": {
     "url": "https://www.ddpurse.com/openapi",
     "headers": {
-      "token": "561b756d12572020ea9a104c3441b71790acbbce95a6ddbf7e0630971af9424b"
+      "token": "561b756d12572020ea9a104c3441b71790acbbce95a6ddbf7e0630971af9424b",
+      'Content-Type': 'application/json'
     }
   },
-  "taal2": {
-    "url": "https://galt.bitcoinscaling.io:9004"
-  },
+//  "taal2": {
+//    "url": "https://galt.bitcoinscaling.io:9004"
+//  },
   "taal": {
-    "url": "https://merchantapi.taal.com"
+    "url": "https://merchantapi.taal.com",
+    "headers": {
+      'Content-Type': 'application/json'
+    }
   }
 }
 const run = async (name) => {
