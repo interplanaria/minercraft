@@ -48,6 +48,8 @@ var Miners = {
 const run = async (name) => {
   let config = Miners[name];
   const miner = new Minercraft(config)
+  const vrate = await miner.fee.rate({ verbose: true })
+  console.log("vrate = ", vrate)
   const rate = await miner.fee.rate()
   let ta = document.querySelector("#"+name)
   if (!ta) return;
@@ -64,7 +66,7 @@ const run = async (name) => {
   let f = "calculated fee for " + name + ": " + fee
 
   const txid = "177b4087cf6ef58e7a93a2791762688a848edbc5169166bc4fd128fba84ff8ba"
-  let status = await miner.tx.status(txid)
+  let status = await miner.tx.status(txid, { verbose: true })
   let s = "Transaction status for " + txid + ": " + JSON.stringify(status, null, 2)
   ta.value = r + "\n\n" + f + "\n\n" + s
 }

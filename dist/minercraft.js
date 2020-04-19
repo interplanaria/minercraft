@@ -9,20 +9,25 @@ class Fee {
       this.ratePath = "/mapi/feeQuote"
     }
   }
-  rate() {
+  rate(options) {
     if (this.url) {
       let u = this.url + (this.ratePath ? this.ratePath : "")
       console.log(u)
       return axios.get(u, { headers: this.headers }).then((res) => {
         let response = JSON.parse(res.data.payload)
-        let fees = {}
-        response.fees.forEach((f) => {
-          fees[f.feeType] = {
-            mine: f.miningFee.satoshis/f.miningFee.bytes,
-            relay: f.relayFee.satoshis/f.relayFee.bytes
-          }
-        })
-        return fees
+        if (options && options.verbose) {
+          res.data.payload = response
+          return res.data;
+        } else {
+          let fees = {}
+          response.fees.forEach((f) => {
+            fees[f.feeType] = {
+              mine: f.miningFee.satoshis/f.miningFee.bytes,
+              relay: f.relayFee.satoshis/f.relayFee.bytes
+            }
+          })
+          return fees
+        }
       })
     } else {
       throw new Error("Must instantiate with a miner merchant API root URL")
@@ -38289,23 +38294,33 @@ class Transaction {
       this.pushPath = "/mapi/tx"
     }
   }
-  push(rawtx) {
+  push(rawtx, options) {
     if (this.url) {
       let u = this.url + (this.pushPath ? this.pushPath : "")
       return axios.post(u, { rawtx: rawtx }, {
         headers: this.headers
       }).then((res) => {
-        return JSON.parse(res.data.payload)
+        if (options && options.verbose) {
+          res.data.payload = JSON.parse(res.data.payload)
+          return res.data
+        } else {
+          return JSON.parse(res.data.payload)
+        }
       })
     } else {
       throw new Error("Must instantiate with a miner merchant API root URL")
     }
   }
-  status(id) {
+  status(id, options) {
     if (this.url) {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
-        return JSON.parse(res.data.payload)
+        if (options && options.verbose) {
+          res.data.payload = JSON.parse(res.data.payload)
+          return res.data
+        } else {
+          return JSON.parse(res.data.payload)
+        }
       })
     } else {
       throw new Error("Must instantiate with a miner merchant API root URL")
