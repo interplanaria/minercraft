@@ -98,6 +98,9 @@ You can use the following config to connect to Matterpool.io merchant API:
 ```
 const miner = new Minercraft({
   url: "https://merchantapi.matterpool.io",
+  headers: {
+    "Content-Type": "application/json"
+  }
 })
 ```
 
