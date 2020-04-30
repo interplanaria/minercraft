@@ -1,5 +1,6 @@
 const Fee = require('./fee')
 const Transaction = require('./transaction')
+const Validate = require('./validate')
 /***************************************
 new Minercraft({
   url: "https://www.ddpurse.com/openapi",
@@ -10,8 +11,11 @@ new Minercraft({
 ***************************************/
 class Minercraft {
   constructor(o) {
+    o = Object.assign(o, { validate: Validate })
     this.fee = new Fee(o)
     this.tx = new Transaction(o)
+    this.validate = Validate
   }
 }
+Minercraft.validate = Validate
 module.exports = Minercraft

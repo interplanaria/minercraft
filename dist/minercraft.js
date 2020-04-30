@@ -8,23 +8,29 @@ class Fee {
       this.headers = o.headers
       this.ratePath = "/mapi/feeQuote"
     }
+    this.validate = o.validate;
   }
   rate(options) {
     if (this.url) {
       let u = this.url + (this.ratePath ? this.ratePath : "")
-      console.log(u)
       return axios.get(u, { headers: this.headers }).then((res) => {
-        let response = JSON.parse(res.data.payload)
-        if (options && options.verbose) {
-          res.data.payload = response
-          return res.data;
+        let isvalid = this.validate(res.data)
+        if (isvalid) {
+          let response = JSON.parse(res.data.payload)
+          if (options && options.verbose) {
+            res.data.payload = response
+            res.data.valid = isvalid
+            return res.data;
+          } else {
+            let fees = { expires: response.expiryTime, mine: {}, relay: {} }
+            response.fees.forEach((f) => {
+              fees.mine[f.feeType] = f.miningFee.satoshis/f.miningFee.bytes
+              fees.relay[f.feeType] = f.relayFee.satoshis/f.relayFee.bytes
+            })
+            return fees
+          }
         } else {
-          let fees = { mine: {}, relay: {} }
-          response.fees.forEach((f) => {
-            fees.mine[f.feeType] = f.miningFee.satoshis/f.miningFee.bytes
-            fees.relay[f.feeType] = f.relayFee.satoshis/f.relayFee.bytes
-          })
-          return fees
+          throw new Error("the merchant API signature doesn't match the publickey and the response")
         }
       })
     } else {
@@ -84,6 +90,7 @@ module.exports = Fee
 },{"axios":21,"bsv":80}],2:[function(require,module,exports){
 const Fee = require('./fee')
 const Transaction = require('./transaction')
+const Validate = require('./validate')
 /***************************************
 new Minercraft({
   url: "https://www.ddpurse.com/openapi",
@@ -94,13 +101,16 @@ new Minercraft({
 ***************************************/
 class Minercraft {
   constructor(o) {
+    o = Object.assign(o, { validate: Validate })
     this.fee = new Fee(o)
     this.tx = new Transaction(o)
+    this.validate = Validate
   }
 }
+Minercraft.validate = Validate
 module.exports = Minercraft
 
-},{"./fee":1,"./transaction":242}],3:[function(require,module,exports){
+},{"./fee":1,"./transaction":242,"./validate":243}],3:[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -38291,6 +38301,7 @@ class Transaction {
       this.statusPath = "/mapi/tx"
       this.pushPath = "/mapi/tx"
     }
+    this.validate = o.validate;
   }
   push(rawtx, options) {
     if (this.url) {
@@ -38313,11 +38324,17 @@ class Transaction {
     if (this.url) {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
-        if (options && options.verbose) {
-          res.data.payload = JSON.parse(res.data.payload)
-          return res.data
+        let isvalid = this.validate(res.data)
+        if (isvalid) {
+          if (options && options.verbose) {
+            res.data.payload = JSON.parse(res.data.payload)
+            res.data.valid = isvalid
+            return res.data
+          } else {
+            return JSON.parse(res.data.payload)
+          }
         } else {
-          return JSON.parse(res.data.payload)
+          throw new Error("the merchant API signature doesn't match the publickey and the response")
         }
       })
     } else {
@@ -38327,5 +38344,16 @@ class Transaction {
 }
 module.exports = Transaction
 
-},{"axios":21}]},{},[2])(2)
+},{"axios":21}],243:[function(require,module,exports){
+(function (Buffer){
+const bsv = require('bsv')
+module.exports = (status) => {
+  const payloadHash = bsv.crypto.Hash.sha256(Buffer.from(status.payload))
+  const signature = bsv.crypto.Signature.fromString(status.signature)
+  const publicKey = bsv.PublicKey.fromString(status.publicKey)
+  return bsv.crypto.ECDSA.verify(payloadHash, signature, publicKey)
+}
+
+}).call(this,require("buffer").Buffer)
+},{"bsv":80,"buffer":127}]},{},[2])(2)
 });

@@ -7,6 +7,7 @@ class Transaction {
       this.statusPath = "/mapi/tx"
       this.pushPath = "/mapi/tx"
     }
+    this.validate = o.validate;
   }
   push(rawtx, options) {
     if (this.url) {
@@ -29,11 +30,17 @@ class Transaction {
     if (this.url) {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
-        if (options && options.verbose) {
-          res.data.payload = JSON.parse(res.data.payload)
-          return res.data
+        let isvalid = this.validate(res.data)
+        if (isvalid) {
+          if (options && options.verbose) {
+            res.data.payload = JSON.parse(res.data.payload)
+            res.data.valid = isvalid
+            return res.data
+          } else {
+            return JSON.parse(res.data.payload)
+          }
         } else {
-          return JSON.parse(res.data.payload)
+          throw new Error("the merchant API signature doesn't match the publickey and the response")
         }
       })
     } else {
