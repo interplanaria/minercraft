@@ -235,8 +235,6 @@ This will provide more information about the response.
 
 ## 5. Validate API responses
 
-### Automatically handled
-
 Minercraft takes care of all the cryptographic validation of the API responses automatically.
 
 Note that every response contains a `"valid"` attribute which is either `true` or `false`.
