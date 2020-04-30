@@ -31,16 +31,14 @@ class Transaction {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
         let isvalid = this.validate(res.data)
-        if (isvalid) {
-          if (options && options.verbose) {
-            res.data.payload = JSON.parse(res.data.payload)
-            res.data.valid = isvalid
-            return res.data
-          } else {
-            return JSON.parse(res.data.payload)
-          }
+        if (options && options.verbose) {
+          res.data.payload = JSON.parse(res.data.payload)
+          res.data.valid = isvalid
+          return res.data
         } else {
-          throw new Error("the merchant API signature doesn't match the publickey and the response")
+          let j = JSON.parse(res.data.payload)
+          j.valid = isvalid
+          return j
         }
       })
     } else {

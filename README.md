@@ -117,6 +117,8 @@ will print:
 
 ```
 fee rate: {
+  valid: true,
+  expires: '2020-04-30T13:05:16.925Z',
   mine: { standard: 0.5, data: 0.5 },
   relay: { standard: 0.25, data: 0.25 }
 }
@@ -229,3 +231,49 @@ let response = await miner.tx.push("0100000001648ed7d1c1a27ec923445c8d404e227145
 ```
 
 This will provide more information about the response.
+
+
+## 5. Validate API responses
+
+### Automatically handled
+
+Minercraft takes care of all the cryptographic validation of the API responses automatically.
+
+Note that every response contains a `"valid"` attribute which is either `true` or `false`.
+
+It will be true if the signature matches the publickey and the content. Otherwise it will be false. This is the same for both the normal mode and the verbose mode. Here are some examples:
+
+Normal Mode:
+
+```
+{
+  valid: true,
+  expires: '2020-04-30T13:05:16.525Z',
+  mine: { standard: 0.5, data: 0.5 },
+  relay: { standard: 0.25, data: 0.25 }
+}
+```
+
+Verbose Mode:
+
+```
+{
+  payload: {
+    apiVersion: '0.1.0',
+    timestamp: '2020-04-30T12:55:26.581Z',
+    returnResult: 'success',
+    resultDescription: '',
+    blockHash: '000000000000000004a5686ff15cdb3950939bdc5725970d963e2b03d3d43d45',
+    blockHeight: 630700,
+    confirmations: 2167,
+    minerId: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
+    txSecondMempoolExpiry: 0
+  },
+  signature: '304402206a15cc626cb8e959aeb53eb4224cdd7150c56ae662ed236d7042265f21cbc8f802200bf97202bc0c09aae1f3993d28d4175ae24dd53225321c64cb9492c81f2ede03',
+  publicKey: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
+  encoding: 'UTF-8',
+  mimetype: 'applicaton/json',
+  valid: true
+}
+```
+
