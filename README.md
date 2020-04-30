@@ -180,7 +180,8 @@ will print:
   blockHeight: 630700,
   confirmations: 50,
   minerId: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
-  txSecondMempoolExpiry: 0
+  txSecondMempoolExpiry: 0,
+  valid: true
 }
 ```
 
@@ -209,7 +210,8 @@ will print something like:
   "signature": "3044022032eb418ea68a0825767fa6bf038cca200acbbbabeadd7f7e3b203594e3ef3ee60220224fc0657a5c7c8b3b4a8b71de897655a990b975ae9e9f8d574eb806663bc839",
   "publicKey": "03e92d3e5c3f7bd945dfbf48e7a99393b1bfb3f11f380ae30d286e7ff2aec5a270",
   "encoding": "UTF-8",
-  "mimetype": "application/json"
+  "mimetype": "application/json",
+  "valid": true
 }
 ```
 
