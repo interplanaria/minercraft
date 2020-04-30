@@ -15,22 +15,18 @@ class Fee {
       let u = this.url + (this.ratePath ? this.ratePath : "")
       return axios.get(u, { headers: this.headers }).then((res) => {
         let isvalid = this.validate(res.data)
-        if (isvalid) {
-          let response = JSON.parse(res.data.payload)
-          if (options && options.verbose) {
-            res.data.payload = response
-            res.data.valid = isvalid
-            return res.data;
-          } else {
-            let fees = { expires: response.expiryTime, mine: {}, relay: {} }
-            response.fees.forEach((f) => {
-              fees.mine[f.feeType] = f.miningFee.satoshis/f.miningFee.bytes
-              fees.relay[f.feeType] = f.relayFee.satoshis/f.relayFee.bytes
-            })
-            return fees
-          }
+        let response = JSON.parse(res.data.payload)
+        if (options && options.verbose) {
+          res.data.payload = response
+          res.data.valid = isvalid
+          return res.data;
         } else {
-          throw new Error("the merchant API signature doesn't match the publickey and the response")
+          let fees = { valid: isvalid, expires: response.expiryTime, mine: {}, relay: {} }
+          response.fees.forEach((f) => {
+            fees.mine[f.feeType] = f.miningFee.satoshis/f.miningFee.bytes
+            fees.relay[f.feeType] = f.relayFee.satoshis/f.relayFee.bytes
+          })
+          return fees
         }
       })
     } else {
@@ -38325,16 +38321,14 @@ class Transaction {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
         let isvalid = this.validate(res.data)
-        if (isvalid) {
-          if (options && options.verbose) {
-            res.data.payload = JSON.parse(res.data.payload)
-            res.data.valid = isvalid
-            return res.data
-          } else {
-            return JSON.parse(res.data.payload)
-          }
+        if (options && options.verbose) {
+          res.data.payload = JSON.parse(res.data.payload)
+          res.data.valid = isvalid
+          return res.data
         } else {
-          throw new Error("the merchant API signature doesn't match the publickey and the response")
+          let j = JSON.parse(res.data.payload)
+          j.valid = isvalid
+          return j
         }
       })
     } else {
