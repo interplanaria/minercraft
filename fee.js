@@ -18,7 +18,7 @@ class Fee {
           res.data.payload = response
           return res.data;
         } else {
-          let fees = { mine: {}, relay: {} }
+          let fees = { expires: response.expiryTime, mine: {}, relay: {} }
           response.fees.forEach((f) => {
             fees.mine[f.feeType] = f.miningFee.satoshis/f.miningFee.bytes
             fees.relay[f.feeType] = f.relayFee.satoshis/f.relayFee.bytes
