@@ -172,16 +172,16 @@ will print:
 
 ```json
 {
-  apiVersion: '0.1.0',
-  timestamp: '2020-04-15T19:51:51.020Z',
-  returnResult: 'success',
-  resultDescription: '',
-  blockHash: '000000000000000004a5686ff15cdb3950939bdc5725970d963e2b03d3d43d45',
-  blockHeight: 630700,
-  confirmations: 50,
-  minerId: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
-  txSecondMempoolExpiry: 0,
-  valid: true
+  "apiVersion": "0.1.0",
+  "timestamp": "2020-04-15T19:51:51.020Z",
+  "returnResult": "success",
+  "resultDescription": "",
+  "blockHash": "000000000000000004a5686ff15cdb3950939bdc5725970d963e2b03d3d43d45",
+  "blockHeight": 630700,
+  "confirmations": 50,
+  "minerId": "03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758",
+  "txSecondMempoolExpiry": 0,
+  "valid": true
 }
 ```
 
@@ -247,10 +247,10 @@ Normal Mode:
 
 ```json
 {
-  valid: true,
-  expires: '2020-04-30T13:05:16.525Z',
-  mine: { standard: 0.5, data: 0.5 },
-  relay: { standard: 0.25, data: 0.25 }
+  "valid": true,
+  "expires": "2020-04-30T13:05:16.525Z",
+  "mine": { standard: 0.5, data: 0.5 },
+  "relay": { standard: 0.25, data: 0.25 }
 }
 ```
 
@@ -258,22 +258,22 @@ Verbose Mode:
 
 ```json
 {
-  payload: {
-    apiVersion: '0.1.0',
-    timestamp: '2020-04-30T12:55:26.581Z',
-    returnResult: 'success',
-    resultDescription: '',
-    blockHash: '000000000000000004a5686ff15cdb3950939bdc5725970d963e2b03d3d43d45',
-    blockHeight: 630700,
-    confirmations: 2167,
-    minerId: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
-    txSecondMempoolExpiry: 0
+  "payload": {
+    "apiVersion": "0.1.0",
+    "timestamp": "2020-04-30T12:55:26.581Z",
+    "returnResult": "success",
+    "resultDescription": "",
+    "blockHash": "000000000000000004a5686ff15cdb3950939bdc5725970d963e2b03d3d43d45",
+    "blockHeight": 630700,
+    "confirmations": 2167,
+    "minerId": "03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758",
+    "txSecondMempoolExpiry": 0
   },
-  signature: '304402206a15cc626cb8e959aeb53eb4224cdd7150c56ae662ed236d7042265f21cbc8f802200bf97202bc0c09aae1f3993d28d4175ae24dd53225321c64cb9492c81f2ede03',
-  publicKey: '03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758',
-  encoding: 'UTF-8',
-  mimetype: 'applicaton/json',
-  valid: true
+  "signature": "304402206a15cc626cb8e959aeb53eb4224cdd7150c56ae662ed236d7042265f21cbc8f802200bf97202bc0c09aae1f3993d28d4175ae24dd53225321c64cb9492c81f2ede03",
+  "publicKey": "03c51d59a737a0ebc064344bf206b7140bf51a9ef8d6cb75dc2d726853d7c76758",
+  "encoding": "UTF-8",
+  "mimetype": "applicaton/json",
+  "valid": true
 }
 ```
 
