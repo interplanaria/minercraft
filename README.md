@@ -78,7 +78,7 @@ const miner = new Minercraft({
 
 ### b. Mempool.com
 
-You can use the following config to connect to Mempool.com merchant API (Tentative):
+You can use the following config to connect to Mempool.com merchant API (Tentative) using the beta token (free):
 
 ```javascript
 const miner = new Minercraft({
