@@ -117,10 +117,10 @@ will print:
 
 ```json
 fee rate: {
-  valid: true,
-  expires: '2020-04-30T13:05:16.925Z',
-  mine: { standard: 0.5, data: 0.5 },
-  relay: { standard: 0.25, data: 0.25 }
+  "valid": true,
+  "expires": "2020-04-30T13:05:16.925Z",
+  "mine": { "standard": 0.5, "data": 0.5 },
+  "relay": { "standard": 0.25, "data": 0.25 }
 }
 ```
 
@@ -249,8 +249,8 @@ Normal Mode:
 {
   "valid": true,
   "expires": "2020-04-30T13:05:16.525Z",
-  "mine": { standard: 0.5, data: 0.5 },
-  "relay": { standard: 0.25, data: 0.25 }
+  "mine": { "standard": 0.5, "data": 0.5 },
+  "relay": { "standard": 0.25, "data": 0.25 }
 }
 ```
 
