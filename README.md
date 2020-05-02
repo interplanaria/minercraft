@@ -61,8 +61,9 @@ Example:
 const miner = new Minercraft({
   url: "https://www.ddpurse.com/openapi",
   headers: {
+    // The following token value is a "free trial" value. For more info visit https://developers.dotwallet.com/en/dev/api/merchant
     token: "561b756d12572020ea9a104c3441b71790acbbce95a6ddbf7e0630971af9424b"
-  },
+  }
 })
 ```
 
@@ -84,12 +85,11 @@ You can use the following config to connect to Mempool.com merchant API (Tentati
 const miner = new Minercraft({
   url: "https://www.ddpurse.com/openapi",
   headers: {
+    // The following token value is a "free trial" value. For more info visit https://developers.dotwallet.com/en/dev/api/merchant
     token: "561b756d12572020ea9a104c3441b71790acbbce95a6ddbf7e0630971af9424b"
   }
 })
 ```
-
-> You can learn more about Mempool.com's API at: https://developers.dotwallet.com/en/dev/api/merchant
 
 ### c. Matterpool.io
 
