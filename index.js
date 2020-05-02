@@ -11,7 +11,8 @@ new Minercraft({
 ***************************************/
 class Minercraft {
   constructor(o) {
-    o = Object.assign(o, { validate: Validate })
+    o.validate = Validate
+    o.headers = Object.assign({ "Content-Type": "application/json" }, o.headers)
     this.fee = new Fee(o)
     this.tx = new Transaction(o)
     this.validate = Validate
