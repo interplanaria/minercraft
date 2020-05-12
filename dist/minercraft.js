@@ -14,7 +14,12 @@ class Fee {
     if (this.url) {
       let u = this.url + (this.ratePath ? this.ratePath : "")
       return axios.get(u, { headers: this.headers }).then((res) => {
-        let isvalid = this.validate(res.data)
+        let isvalid;
+        try {
+          isvalid = this.validate(res.data)
+        } catch (e) {
+          isvalid = false;
+        }
         let response = JSON.parse(res.data.payload)
         if (options && options.verbose) {
           res.data.payload = response
@@ -38321,7 +38326,12 @@ class Transaction {
     if (this.url) {
       let u = this.url + (this.statusPath ? this.statusPath : "") + "/" + id
       return axios.get(u, { headers: this.headers }).then((res) => {
-        let isvalid = this.validate(res.data)
+        let isvalid;
+        try {
+          isvalid = this.validate(res.data)
+        } catch (e) {
+          isvalid = false;
+        }
         if (options && options.verbose) {
           res.data.payload = JSON.parse(res.data.payload)
           res.data.valid = isvalid
